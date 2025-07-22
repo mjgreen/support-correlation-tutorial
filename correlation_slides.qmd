@@ -3,25 +3,67 @@ title: "Correlation"
 format: revealjs
 ---
 
+```{r, echo=F}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(jtools))
+suppressPackageStartupMessages(library(readxl))
+```
+
+
 ## Correlation vs t-test
 
 In statistics, there are tests for __differences__; and tests for __association__
 
 * t-test is for __difference__ between groups
-  * are women better than men at recognising faces?
+  * are women better than men at volleyball?
 * correlation is for __association__ between variables
-  * do exam scores go up as students revise more?
+  * is more practice associated with better performance
 
 ---
 
 ### t-test
 
-picture of barchart
+Women are better than men at volleyball.
+
+```{r}
+volleyball = sleep %>% 
+  mutate(
+    `volleyball skill` = sqrt(extra^2),
+    Gender = factor(group, levels=c(1,2), labels=c("Men", "Women"))
+    )
+ggplot(volleyball, aes(y=`volleyball skill`, x=Gender, fill=Gender))+
+  stat_summary(fun.y=mean, position=position_dodge(width=0.95), geom="bar")+
+  theme_apa()+
+  #ylab("score")+
+  theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
+  scale_fill_discrete(guide = "none")
+  
+```
+
+---
 
 ### correlation
 
-picture of scatterplot and line of best fit
-  
+More practice is generally associated with better performance (with exceptions)
+
+```{r}
+set.seed(1)
+prac = read_excel("practice_vs_performance.xlsx") 
+prac2=prac
+prac2$practice=prac2$practice+runif(10,-1.5,1.5)
+prac2$performance[1] = 7.5
+prac2$practice[1] = 0.5
+prac2$performance[8] = 0.5
+prac = prac %>% bind_rows(prac2)
+ggplot(prac, aes(x=practice, y=performance))+
+  theme_apa()+
+  geom_point()+
+  geom_smooth(se=F, method = 'lm')+
+  scale_x_continuous(breaks=0:10, limits=c(0,10)) +
+  scale_y_continuous(breaks=0:10, limits=c(0,10)) +
+  theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))
+```
+
 ---
 
 

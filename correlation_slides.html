@@ -138,21 +138,26 @@
 <ul>
 <li>t-test is for <strong>difference</strong> between groups
 <ul>
-<li>are women better than men at recognising faces?</li>
+<li>are women better than men at volleyball?</li>
 </ul></li>
 <li>correlation is for <strong>association</strong> between variables
 <ul>
-<li>do exam scores go up as students revise more?</li>
+<li>is more practice associated with better performance</li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level2">
 
 <h3 id="t-test">t-test</h3>
-<p>picture of barchart</p>
+<p>Women are better than men at volleyball.</p>
+
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
 <h3 id="correlation">correlation</h3>
-<p>picture of scatterplot and line of best fit</p>
-</section>
+<p>More practice is generally associated with better performance (with exceptions)</p>
+
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 
@@ -372,6 +377,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
