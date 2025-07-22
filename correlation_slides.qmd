@@ -3,23 +3,27 @@ title: "Correlation"
 format: revealjs
 ---
 
-## Quarto
+## Correlation vs t-test
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+In statistics, there are tests for __differences__; and tests for __association__
 
-## Bullets
+* t-test is for __difference__ between groups
+  * are women better than men at recognising faces?
+* correlation is for __association__ between variables
+  * do exam scores go up as students revise more?
 
-When you click the **Render** button a document will be generated that includes:
+---
 
--   Content authored with markdown
--   Output from executable code
+### t-test
 
-## Code
+picture of barchart
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+### correlation
 
-```{r}
-1 + 1
-```
+picture of scatterplot and line of best fit
+  
+---
+
+
 
 
