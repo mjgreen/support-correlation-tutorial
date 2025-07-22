@@ -46,7 +46,7 @@ ggplot(volleyball, aes(y=`volleyball skill`, x=Gender, fill=Gender))+
 
 More practice is generally associated with better performance (with exceptions)
 
-```{r}
+```{r 'example plot', cache=TRUE}
 set.seed(1)
 prac = read_excel("practice_vs_performance.xlsx") 
 prac2=prac
@@ -67,5 +67,66 @@ ggplot(prac, aes(x=practice, y=performance))+
 ---
 
 
+### Understand what you are comparing
+
+1. Time living in East Asia (__practice__)
+2. Ability to recognise Asian Chinese faces (__performance__)
+
+
+```{r}
+ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
+  scale_x_continuous(labels = NULL, breaks = NULL)+
+  scale_y_continuous(labels = NULL, breaks = NULL)+
+  theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))
+```
+
+---
+
+What relationship do we expect between practice and performance? 1
+
+```{r}
+ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
+  scale_x_continuous(labels = NULL, breaks = NULL)+
+  scale_y_continuous(labels = NULL, breaks = NULL)+
+  theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))
+```
+
+---
+
+What relationship do we expect between practice and performance? 2
+
+```{r}
+ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
+  scale_x_continuous(labels = NULL, breaks = NULL)+
+  scale_y_continuous(labels = NULL, breaks = NULL)+
+  theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
+  geom_smooth()
+```
+
+---
+
+What relationship do we expect between practice and performance? 3
+
+```{r}
+example_data = read_csv("real_exam_data/Data for Practical Report.csv", show_col_types = F) %>% 
+  mutate(accuracy_Asian=accuracy_Asian+runif(n=50, min=-1.5, max=1.5)) %>% 
+  rename(caucasion_accuracy = accuracy_Caucasian)
+
+idealised_example_data = tibble(
+  x=c(0, 12),
+  y=c(25, 96.61)
+)
+```
+
+
+```{r}
+ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
+  theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
+  scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
+  scale_y_continuous(limits=c(25, 100), breaks=seq(25, 100, 25))+
+  geom_smooth(data=idealised_example_data, aes(x=x, y=y), se=F, method='lm', color='grey')+
+  labs(x = "PRACTICE\n(duration_SEA)")+
+  labs(y = "PERFORMANCE\n(accuracy_Asian)")
+```
 
 
