@@ -142,7 +142,7 @@
 </ul></li>
 <li>correlation is for <strong>association</strong> between variables
 <ul>
-<li>is more practice associated with better performance</li>
+<li>is more practice associated with better performance?</li>
 </ul></li>
 </ul>
 </section>
@@ -169,20 +169,113 @@
 <img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>What relationship do we expect between practice and performance? 1</p>
+<p>What relationship do we expect between practice and performance? – in general</p>
 
 <img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>What relationship do we expect between practice and performance? 2</p>
+<p>What relationship do we expect between practice and performance? – in general</p>
 
 <img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>What relationship do we expect between practice and performance? 3</p>
-
+<p>What relationship do we expect? – for the assignment data</p>
 
 <img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>What do the raw data say?</p>
+
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>What is the true relationship?</p>
+
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="common-sense-summary-so-far" class="slide level2">
+<h2>Common-sense summary so far</h2>
+<ul>
+<li>More practice usually means better performance</li>
+<li>More time spent in East Asia gives a person more practice at recognising Asian Chinese faces</li>
+<li>As Caucasians spend more and more time living in East Asia, they get better and better at recognising Asian Chinese faces</li>
+</ul>
+</section>
+<section id="correlation-1" class="slide level2">
+<h2>Correlation</h2>
+<ul>
+<li>Running a correlation tells you how consistent the relationship is between practice and performance, across a group.</li>
+</ul>
+<ol type="1">
+<li>As a person’s practice score deviates from the group average practice, does their performance score deviate from the group average performance score <strong><em>in the same direction?</em></strong></li>
+<li>As a person’s practice score deviates from the group average practice, does their performance score deviate from the group average performance score <strong><em>by the same amount?</em></strong></li>
+</ol>
+</section>
+<section id="two-types-of-difference" class="slide level2">
+<h2>Two types of difference</h2>
+<ol type="1">
+<li>Difference in direction, + or -
+<ul>
+<li>Differences of <strong>direction</strong> tell us whether performance goes up or down with practice, and are reflected in the sign of the r value, positive or negative, plus or minus.</li>
+</ul></li>
+<li>Difference of amount, between 0 and 1
+<ul>
+<li>Differences of <strong>amount</strong> tell us whether practice is strongly related to performance or only weakly, or not related at all, 0 for not related at all, 1 for perfectly related. Two perfectly related variables change together at a fixed rate.</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>So, r can be anywhere from -1 to 1.
+<ul>
+<li>1: as people practice more, their performance goes up more, and the increased practice carries on being associated with better performance as practice goes up more and more, by the same amount. Each additional hour of practice is associated with a performance boost of the same size for each hour of practice.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>So, r can be anywhere from -1 to 1.
+<ul>
+<li>0: when practice goes up, performance can go up, but it can also go down: performance isn’t related to practice at all.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>So, r can be anywhere from -1 to 1.
+<ul>
+<li>-1 (notice the minus sign) : when practice goes up, performance goes <strong>down</strong>, and it keeps on going down the more practice you do: each additional hour of practice is associated with an additional decrease in performance of the same size for each additional hour of practice.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-r-of-0.3" class="slide level2">
+<h2>Example, r of 0.3</h2>
+<ul>
+<li>If r is 0.3 then each additional hour of practice would be associated with a performance boost, because 0.3 is positive. However, the boost would be quite variable, because 0.3 is quite a lot smaller than 1 (r of 1 would represent a constant increase in performance for each hour of practice). Some hours of practice would probably be associated with <strong><em>reduced</em></strong> performance because 0.3 is so close to 0, meaning that the boost is very variable.</li>
+</ul>
+</section>
+<section id="the-role-of-p" class="slide level2">
+<h2>The role of p</h2>
+<p>p tells us something about the population based on what we see in the sample.</p>
+<p>Good p values (less than 0.05) mean that whatever we found in the sample is probably true of the wider population. If we found that r was 0.7 in our sample, and p was 0.04, we could say that just as performance increased without much variability (r is positive 0.7) for each hour of practice in our participants, it probably (p less than 0.05) increases without much variability for people in general.</p>
+<!-- >The p-value helps us determine whether or not we can meaningfully conclude that the population correlation coefficient is different from zero, based on what we observe from the sample. -->
+</section>
+<section id="correlation-in-jasp" class="slide level2">
+<h2>Correlation in JASP</h2>
+<p>[switch to screen-sharing demo]</p>
+</section>
+<section id="writing-up-a-correlation-in-a-report" class="slide level2">
+<h2>Writing up a correlation in a report</h2>
+<ul>
+<li>APA-formatting</li>
+<li>What you need to put in the report body text</li>
+<li>What can go in the Appendix</li>
+<li>What marks you get for each bit</li>
+</ul>
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
