@@ -231,7 +231,21 @@ How to test for normality in JASP. _Bear in mind that you will get different val
 
 ![](Screenshot_assumption_check.png){width=100%} 
 
+---
 
+In our dummy data, $p$ was 0.026 which is less than 0.05 so the assumption of normality was violated. Therefore we use Spearman's rho for the correlation test.
+
+---
+
+How to run correlation in JASP
+
+![](Screenshot_correlation_test_tickboxes.png)
+
+---
+
+JASP output for correlation test
+
+![](Screenshot_correlation_table.png)
 
 
 ## Writing up a correlation in a report
