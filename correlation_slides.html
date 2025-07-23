@@ -181,17 +181,17 @@
 
 <p>What relationship do we expect? – for the assignment data</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What do the raw data say?</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What is the true relationship?</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section id="common-sense-summary-so-far" class="slide level2">
 <h2>Common-sense summary so far</h2>
 <ul>
@@ -260,11 +260,19 @@
 <h2>The role of p</h2>
 <p>p tells us something about the population based on what we see in the sample.</p>
 <p>Good p values (less than 0.05) mean that whatever we found in the sample is probably true of the wider population. If we found that r was 0.7 in our sample, and p was 0.04, we could say that just as performance increased without much variability (r is positive 0.7) for each hour of practice in our participants, it probably (p less than 0.05) increases without much variability for people in general.</p>
-<!-- >The p-value helps us determine whether or not we can meaningfully conclude that the population correlation coefficient is different from zero, based on what we observe from the sample. -->
 </section>
-<section id="correlation-in-jasp" class="slide level2">
-<h2>Correlation in JASP</h2>
-<p>[switch to screen-sharing demo]</p>
+<section class="slide level2">
+
+<h3 id="correlation-in-jasp">Correlation in JASP</h3>
+<!-- [switch to screen-sharing demo] -->
+<p>First we need to test the assumption of normality because the result of that test tells us whether to do Pearson’s r or Spearman’s rho.</p>
+<p>If p &lt;.05 then the assumption of normality is violated. If it is not violated then use Pearson’s r. If it is violated use Spearman’s rho.</p>
+</section>
+<section class="slide level2">
+
+<p>How to test for normality in JASP. <em>Bear in mind that you will get different values because I’m using dummy data</em>.</p>
+<p><img data-src="Screenshot_normality_checking_tickbox.png" style="width:100.0%"></p>
+<p><img data-src="Screenshot_assumption_check.png" style="width:100.0%"></p>
 </section>
 <section id="writing-up-a-correlation-in-a-report" class="slide level2">
 <h2>Writing up a correlation in a report</h2>

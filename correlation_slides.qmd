@@ -9,7 +9,6 @@ suppressPackageStartupMessages(library(jtools))
 suppressPackageStartupMessages(library(readxl))
 ```
 
-
 ## Correlation vs t-test
 
 In statistics, there are tests for __differences__; and tests for __association__
@@ -32,9 +31,8 @@ volleyball = sleep %>%
     Gender = factor(group, levels=c(1,2), labels=c("Men", "Women"))
     )
 ggplot(volleyball, aes(y=`volleyball skill`, x=Gender, fill=Gender))+
-  stat_summary(fun.y=mean, position=position_dodge(width=0.95), geom="bar")+
+  stat_summary(fun=mean, position=position_dodge(width=0.95), geom="bar")+
   theme_apa()+
-  #ylab("score")+
   theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_fill_discrete(guide = "none")
   
@@ -67,12 +65,10 @@ ggplot(prac, aes(x=practice, y=performance))+
 
 ---
 
-
 ### Understand what you are comparing
 
 1. Time living in East Asia (__practice__)
 2. Ability to recognise Asian Chinese faces (__performance__)
-
 
 ```{r}
 ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
@@ -116,26 +112,25 @@ ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))
 What relationship do we expect? -- for the assignment data
 
 ```{r}
-example_data = read_csv("real_exam_data/Data for Practical Report.csv", show_col_types = F) %>% 
+real_data = read_csv("Real Data for Practical Report.csv", show_col_types = F) 
+dummy_data = real_data %>% 
   mutate(accuracy_Asian=accuracy_Asian+runif(n=50, min=-1.5, max=1.5)) %>% 
   rename(caucasion_accuracy = accuracy_Caucasian)
+write_csv(dummy_data, file="Dummy Data For Practical Report.csv")
 
-minperf=min(example_data$accuracy_Asian)
-maxperf=max(example_data$accuracy_Asian)
+minperf=min(dummy_data$accuracy_Asian)
+maxperf=max(dummy_data$accuracy_Asian)
 
-idealised_example_data = tibble(
+idealised_dummy_data = tibble(
   x=c(0, 12),
   y=c(minperf, maxperf)
 )
-```
 
-
-```{r}
-ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
+ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
   scale_y_continuous(limits=c(minperf, maxperf), breaks=seq(25, 100, 25))+
-  geom_smooth(data=idealised_example_data, aes(x=x, y=y), se=F, method='lm', color='grey')+
+  geom_smooth(data=idealised_dummy_data, aes(x=x, y=y), se=F, method='lm', color='grey')+
   labs(x = "PRACTICE\n(duration_SEA)")+
   labs(y = "PERFORMANCE\n(accuracy_Asian)")+
   theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20))
@@ -146,7 +141,7 @@ ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
 What do the raw data say?
 
 ```{r}
-ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
+ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
   scale_y_continuous(limits=c(minperf, maxperf), breaks=seq(25, 100, 25))+
@@ -161,7 +156,7 @@ ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
 What is the true relationship?
 
 ```{r}
-ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
+ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
   scale_y_continuous(limits=c(minperf, maxperf), breaks=seq(25, 100, 25))+
@@ -171,6 +166,8 @@ ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
   geom_smooth(method='lm', se=F)+
   theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20))
 ```
+
+
 
 ## Common-sense summary so far
 
@@ -192,7 +189,6 @@ ggplot(example_data, aes(y=accuracy_Asian, x=duration_SEA))+
     * Differences of __amount__ tell us whether practice is strongly related to performance or only weakly, or not related at all, 0 for not related at all, 1 for perfectly related. Two perfectly related variables change together at a fixed rate.
 
 ---
-
 
 * So, r can be anywhere from -1 to 1.
   * 1: as people practice more, their performance goes up more, and the increased practice carries on being associated with better performance as practice goes up more and more, by the same amount. Each additional hour of practice is associated with a performance boost of the same size for each hour of practice.
@@ -217,15 +213,26 @@ p tells us something about the population based on what we see in the sample.
 
 Good p values (less than 0.05) mean that whatever we found in the sample is probably true of the wider population. If we found that r was 0.7 in our sample, and p was 0.04, we could say that just as performance increased without much variability (r is positive 0.7) for each hour of practice in our participants, it probably (p less than 0.05) increases without much variability for people in general.
 
+---
+
+### Correlation in JASP
+
+<!-- [switch to screen-sharing demo] -->
+
+First we need to test the assumption of normality because the result of that test tells us whether to do Pearson's r or Spearman's rho.
+
+If p <.05 then the assumption of normality is violated. If it is not violated then use Pearson's r. If it is violated use Spearman's rho.
+
+---
+
+How to test for normality in JASP. _Bear in mind that you will get different values because I'm using dummy data_.
+
+![](Screenshot_normality_checking_tickbox.png){width=100%} 
+
+![](Screenshot_assumption_check.png){width=100%} 
 
 
 
-<!-- >The p-value helps us determine whether or not we can meaningfully conclude that the population correlation coefficient is different from zero, based on what we observe from the sample. -->
-
-
-## Correlation in JASP
-
-[switch to screen-sharing demo]
 
 ## Writing up a correlation in a report
 
@@ -233,6 +240,4 @@ Good p values (less than 0.05) mean that whatever we found in the sample is prob
 * What you need to put in the report body text
 * What can go in the Appendix
 * What marks you get for each bit
-
-
 
