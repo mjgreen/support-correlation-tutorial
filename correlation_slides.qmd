@@ -1,6 +1,6 @@
 ---
 title: "Correlation"
-format: revealjs
+format: revealjs 
 ---
 
 ```{r libs, echo=F}
