@@ -151,47 +151,46 @@
 <h3 id="t-test">t-test</h3>
 <p>Women are better than men at volleyball.</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/volleyball_img-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <h3 id="correlation">correlation</h3>
 <p>More practice is generally associated with better performance (with exceptions)</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/example%20plot-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="understand-what-you-are-comparing">Understand what you are comparing</h3>
+<img data-src="correlation_slides_files/figure-revealjs/performance_v_practice-1.png" width="960" class="r-stretch"></section>
+<section id="understand-what-you-are-comparing" class="slide level2">
+<h2>Understand what you are comparing</h2>
 <ol type="1">
 <li>Time living in East Asia (<strong>practice</strong>)</li>
 <li>Ability to recognise Asian Chinese faces (<strong>performance</strong>)</li>
 </ol>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/understand-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What relationship do we expect between practice and performance? – in general</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/expected_relationship-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What relationship do we expect between practice and performance? – in general</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/expected_relationship_with_smoother-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What relationship do we expect? – for the assignment data</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/expected_for_assignment_data-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What do the raw data say?</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/scatter_assignment_data-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>What is the true relationship?</p>
 
-<img data-src="correlation_slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="correlation_slides_files/figure-revealjs/true_reln-1.png" width="960" class="r-stretch"></section>
 <section id="common-sense-summary-so-far" class="slide level2">
 <h2>Common-sense summary so far</h2>
 <ul>
@@ -200,8 +199,8 @@
 <li>As Caucasians spend more and more time living in East Asia, they get better and better at recognising Asian Chinese faces</li>
 </ul>
 </section>
-<section id="correlation-1" class="slide level2">
-<h2>Correlation</h2>
+<section id="correlation-test" class="slide level2">
+<h2>Correlation test</h2>
 <ul>
 <li>Running a correlation tells you how consistent the relationship is between practice and performance, across a group.</li>
 </ul>
@@ -210,8 +209,8 @@
 <li>As a person’s practice score deviates from the group average practice, does their performance score deviate from the group average performance score <strong><em>by the same amount?</em></strong></li>
 </ol>
 </section>
-<section id="two-types-of-difference" class="slide level2">
-<h2>Two types of difference</h2>
+<section id="two-types-of-difference-in-relationship-between-variables" class="slide level2">
+<h2>Two types of difference in relationship between variables</h2>
 <ol type="1">
 <li>Difference in direction, + or -
 <ul>
@@ -261,43 +260,46 @@
 <p>p tells us something about the population based on what we see in the sample.</p>
 <p>Good p values (less than 0.05) mean that whatever we found in the sample is probably true of the wider population. If we found that r was 0.7 in our sample, and p was 0.04, we could say that just as performance increased without much variability (r is positive 0.7) for each hour of practice in our participants, it probably (p less than 0.05) increases without much variability for people in general.</p>
 </section>
-<section class="slide level2">
-
-<h3 id="correlation-in-jasp">Correlation in JASP</h3>
-<!-- [switch to screen-sharing demo] -->
-<p>First we need to test the assumption of normality because the result of that test tells us whether to do Pearson’s r or Spearman’s rho.</p>
-<p>If p &lt;.05 then the assumption of normality is violated. If it is not violated then use Pearson’s r. If it is violated use Spearman’s rho.</p>
+<section id="jasp" class="slide level2">
+<h2>JASP</h2>
 </section>
 <section class="slide level2">
 
-<p>How to test for normality in JASP. <em>Bear in mind that you will get different values because I’m using dummy data</em>.</p>
-<p><img data-src="Screenshot_normality_checking_tickbox.png" style="width:100.0%"></p>
-<p><img data-src="Screenshot_assumption_check.png" style="width:100.0%"></p>
+<h3 id="assumption-checking">Assumption checking</h3>
+<ul>
+<li><p>First we need to test the assumption of normality because the result of that test tells us whether to do Pearson’s r or Spearman’s rho.</p></li>
+<li><p>If p &lt;.05 then the assumption of normality is violated. If it is not violated then use Pearson’s r. If it is violated use Spearman’s rho.</p></li>
+</ul>
 </section>
 <section class="slide level2">
 
-<p>In our dummy data, <span class="math inline">\(p\)</span> was 0.026 which is less than 0.05 so the assumption of normality was violated. Therefore we use Spearman’s rho for the correlation test.</p>
+<p>How to test for normality in JASP.</p>
+
+<img data-src="Screenshot_normality_checking_tickbox.png" style="width:100.0%" class="r-stretch"></section>
+<section class="slide level2">
+
+
+<img data-src="Screenshot_assumption_check.png" style="width:100.0%" class="r-stretch"><p>In our dummy data, <span class="math inline">\(p\)</span> was 0.026 which is less than 0.05 so the assumption of normality was violated. Therefore we use Spearman’s rho for the correlation test.</p>
+<ul>
+<li>Bear in mind that you will get different values because I’m using dummy data</li>
+<li>I’m using JASP 0.19.3 so I need to report that in the write-up</li>
+</ul>
 </section>
 <section class="slide level2">
 
-<p>How to run correlation in JASP</p>
+<h3 id="run-a-correlation-test">Run a correlation test</h3>
+
+<img data-src="Screenshot_menu.png" class="r-stretch"></section>
+<section class="slide level2">
+
 
 <img data-src="Screenshot_correlation_test_tickboxes.png" class="r-stretch"></section>
 <section class="slide level2">
 
-<p>JASP output for correlation test</p>
+<h3 id="report-a-correlation-test">Report a correlation test</h3>
 
-<!-- [red]{style="color:blue"} -->
-<img data-src="Screenshot_correlation_table.png" class="r-stretch"><p>A <span style="color:blue">Spearman’s</span> correlation was conducted in JASP <span style="color:blue">version 0.19.3</span> to examine the relationship between time spent living in South-East Asia and recognition accuracy for Asian faces. The results indicated a <span style="color:blue">significant positive</span> relationship, rs(48) = <span style="color:blue">.606</span>, p &lt; <span style="color:blue">.001</span>.</p>
-</section>
-<section id="writing-up-a-correlation-in-a-report" class="slide level2">
-<h2>Writing up a correlation in a report</h2>
-<ul>
-<li>APA-formatting</li>
-<li>What you need to put in the report body text</li>
-<li>What can go in the Appendix</li>
-<li>What marks you get for each bit</li>
-</ul>
+<img data-src="Screenshot_correlation_table.png" class="r-stretch"><p>You need to replace the blue text below to account for your own test.</p>
+<p><span style="font-size: 0.8em;">A <span style="color:blue">Spearman’s</span> correlation was conducted in JASP <span style="color:blue">version 0.19.3</span> to examine the relationship between time spent living in South-East Asia and recognition accuracy for Asian faces. The results indicated a <span style="color:blue">significant positive</span> relationship, rs(48) = <span style="color:blue">.606</span>, p &lt; <span style="color:blue">.001</span>.</span></p>
 
 </section>
     </div>

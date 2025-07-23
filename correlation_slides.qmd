@@ -6,9 +6,7 @@ format: revealjs
 ```{r libs, echo=F}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(jtools))
-suppressPackageStartupMessages(library(readxl))
 ```
-
 
 ```{r make datasets}
 set.seed(1)
@@ -22,7 +20,7 @@ dummy_data = real_data %>%
     accuracy_Asian <= 0 ~ 1,
     .default=accuracy_Asian
   ))
-  #mutate(accuracy_Asian=accuracy_Asian+runif(n=50, min=-.5, max=1.5)) 
+
 write_csv(dummy_data, file="Dummy Data For Practical Report.csv")
 
 minperf=min(dummy_data$accuracy_Asian)
@@ -33,6 +31,7 @@ idealised_dummy_data = tibble(
   y=c(minperf, maxperf)
 )
 
+prac = read_csv("practice_vs_performance.csv") 
 ```
 
 ## Correlation vs t-test
@@ -50,7 +49,7 @@ In statistics, there are tests for __differences__; and tests for __association_
 
 Women are better than men at volleyball.
 
-```{r}
+```{r  volleyball_img}
 volleyball = sleep %>% 
   mutate(
     `volleyball skill` = sqrt(extra^2),
@@ -70,8 +69,7 @@ ggplot(volleyball, aes(y=`volleyball skill`, x=Gender, fill=Gender))+
 
 More practice is generally associated with better performance (with exceptions)
 
-```{r 'example plot', cache=TRUE}
-prac = read_excel("practice_vs_performance.xlsx") 
+```{r  performance_v_practice}
 prac2=prac
 prac2$practice=prac2$practice+runif(10,-1.5,1.5)
 prac2$performance[1] = 7.5
@@ -90,12 +88,12 @@ ggplot(prac, aes(x=practice, y=performance))+
 
 ---
 
-### Understand what you are comparing
+## Understand what you are comparing
 
 1. Time living in East Asia (__practice__)
 2. Ability to recognise Asian Chinese faces (__performance__)
 
-```{r}
+```{r  understand}
 ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
   scale_x_continuous(labels = NULL, breaks = NULL)+
   scale_y_continuous(labels = NULL, breaks = NULL)+
@@ -109,7 +107,7 @@ ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))
 
 What relationship do we expect between practice and performance? -- in general
 
-```{r}
+```{r  expected_relationship}
 ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
   scale_x_continuous(labels = NULL, breaks = NULL)+
   scale_y_continuous(labels = NULL, breaks = NULL)+
@@ -123,7 +121,7 @@ ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))
 
 What relationship do we expect between practice and performance? -- in general
 
-```{r}
+```{r  expected_relationship_with_smoother}
 ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))+
   scale_x_continuous(labels = NULL, breaks = NULL)+
   scale_y_continuous(labels = NULL, breaks = NULL)+
@@ -136,8 +134,7 @@ ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))
 
 What relationship do we expect? -- for the assignment data
 
-```{r}
-
+```{r  expected_for_assignment_data}
 ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
@@ -152,7 +149,7 @@ ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
 
 What do the raw data say?
 
-```{r}
+```{r  scatter_assignment_data}
 ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
@@ -167,7 +164,7 @@ ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
 
 What is the true relationship?
 
-```{r}
+```{r  true_reln}
 ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
   scale_x_continuous(limits=c(0, 12), breaks=seq(0, 12, 4)) +
@@ -179,21 +176,19 @@ ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme(axis.title.x = element_text(size = 20), axis.title.y = element_text(size = 20))
 ```
 
-
-
 ## Common-sense summary so far
 
 * More practice usually means better performance
 * More time spent in East Asia gives a person more practice at recognising Asian Chinese faces
 * As Caucasians spend more and more time living in East Asia, they get better and better at recognising Asian Chinese faces
 
-## Correlation 
+## Correlation test
 
 * Running a correlation tells you how consistent the relationship is between practice and performance, across a group. 
 1. As a person's practice score deviates from the group average practice, does their performance score deviate from the group average performance score ___in the same direction?___
 2. As a person's practice score deviates from the group average practice, does their performance score deviate from the group average performance score ___by the same amount?___
 
-## Two types of difference
+## Two types of difference in relationship between variables
 
 1. Difference in direction, + or -
     * Differences of __direction__ tell us whether performance goes up or down with practice, and are reflected in the sign of the r value, positive or negative, plus or minus.
@@ -227,47 +222,49 @@ Good p values (less than 0.05) mean that whatever we found in the sample is prob
 
 ---
 
-### Correlation in JASP
-
-<!-- [switch to screen-sharing demo] -->
-
-First we need to test the assumption of normality because the result of that test tells us whether to do Pearson's r or Spearman's rho.
-
-If p <.05 then the assumption of normality is violated. If it is not violated then use Pearson's r. If it is violated use Spearman's rho.
+## JASP
 
 ---
 
-How to test for normality in JASP. _Bear in mind that you will get different values because I'm using dummy data_.
+### Assumption checking
+
+* First we need to test the assumption of normality because the result of that test tells us whether to do Pearson's r or Spearman's rho.
+
+* If p <.05 then the assumption of normality is violated. If it is not violated then use Pearson's r. If it is violated use Spearman's rho.
+
+---
+
+How to test for normality in JASP. 
 
 ![](Screenshot_normality_checking_tickbox.png){width=100%} 
 
-![](Screenshot_assumption_check.png){width=100%} 
-
 ---
+
+![](Screenshot_assumption_check.png){width=100%} 
 
 In our dummy data, $p$ was 0.026 which is less than 0.05 so the assumption of normality was violated. Therefore we use Spearman's rho for the correlation test.
 
+* Bear in mind that you will get different values because I'm using dummy data
+* I'm using JASP 0.19.3 so I need to report that in the write-up
+
 ---
 
-How to run correlation in JASP
+### Run a correlation test
+
+![](Screenshot_menu.png)
+
+---
 
 ![](Screenshot_correlation_test_tickboxes.png)
 
 ---
 
-JASP output for correlation test
+### Report a correlation test
 
 ![](Screenshot_correlation_table.png)
 
-<!-- [red]{style="color:blue"} -->
+You need to replace the blue text below to account for your own test.
 
-A [Spearman's]{style="color:blue"} correlation was conducted in JASP [version 0.19.3]{style="color:blue"} to examine the relationship between time spent living in South-East Asia and recognition accuracy for Asian faces. The results indicated a [significant positive]{style="color:blue"} relationship, rs(48) = [.606]{style="color:blue"}, p < [.001]{style="color:blue"}.
+<span style="font-size: 0.8em;">A [Spearman's]{style="color:blue"} correlation was conducted in JASP [version 0.19.3]{style="color:blue"} to examine the relationship between time spent living in South-East Asia and recognition accuracy for Asian faces. The results indicated a [significant positive]{style="color:blue"} relationship, rs(48) = [.606]{style="color:blue"}, p < [.001]{style="color:blue"}.</span>
 
-
-## Writing up a correlation in a report
-
-* APA-formatting
-* What you need to put in the report body text
-* What can go in the Appendix
-* What marks you get for each bit
 

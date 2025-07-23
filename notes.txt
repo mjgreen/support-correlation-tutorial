@@ -1,1 +1,0 @@
-However, the normality assumptions are dependent upon version of JASP used for RQ2: Version 17 + Version 18 = Shapiro-Wilk not violated (Pearson’s r correlation); Version 19 = Shapiro-Wilk violated (Spearman’s rho correlation).
