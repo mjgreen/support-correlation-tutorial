@@ -3,10 +3,36 @@ title: "Correlation"
 format: revealjs
 ---
 
-```{r, echo=F}
+```{r libs, echo=F}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(jtools))
 suppressPackageStartupMessages(library(readxl))
+```
+
+
+```{r make datasets}
+set.seed(1)
+
+real_data = read_csv("Real Data for Practical Report.csv", show_col_types = F) 
+dummy_data = real_data %>% 
+  mutate(original_acc_Asian = accuracy_Asian) %>% 
+  mutate(accuracy_Asian = accuracy_Asian  + runif(50, -1, 7)) %>% 
+  mutate(accuracy_Asian = case_when(
+    accuracy_Asian >= 100 ~ 99,
+    accuracy_Asian <= 0 ~ 1,
+    .default=accuracy_Asian
+  ))
+  #mutate(accuracy_Asian=accuracy_Asian+runif(n=50, min=-.5, max=1.5)) 
+write_csv(dummy_data, file="Dummy Data For Practical Report.csv")
+
+minperf=min(dummy_data$accuracy_Asian)
+maxperf=max(dummy_data$accuracy_Asian)
+
+idealised_dummy_data = tibble(
+  x=c(0, 12),
+  y=c(minperf, maxperf)
+)
+
 ```
 
 ## Correlation vs t-test
@@ -45,7 +71,6 @@ ggplot(volleyball, aes(y=`volleyball skill`, x=Gender, fill=Gender))+
 More practice is generally associated with better performance (with exceptions)
 
 ```{r 'example plot', cache=TRUE}
-set.seed(1)
 prac = read_excel("practice_vs_performance.xlsx") 
 prac2=prac
 prac2$practice=prac2$practice+runif(10,-1.5,1.5)
@@ -112,19 +137,6 @@ ggplot(data=tibble(PRACTICE=0:10, PERFORMANCE=0:10), aes(PRACTICE, PERFORMANCE))
 What relationship do we expect? -- for the assignment data
 
 ```{r}
-real_data = read_csv("Real Data for Practical Report.csv", show_col_types = F) 
-dummy_data = real_data %>% 
-  mutate(accuracy_Asian=accuracy_Asian+runif(n=50, min=-1.5, max=1.5)) %>% 
-  rename(caucasion_accuracy = accuracy_Caucasian)
-write_csv(dummy_data, file="Dummy Data For Practical Report.csv")
-
-minperf=min(dummy_data$accuracy_Asian)
-maxperf=max(dummy_data$accuracy_Asian)
-
-idealised_dummy_data = tibble(
-  x=c(0, 12),
-  y=c(minperf, maxperf)
-)
 
 ggplot(dummy_data, aes(y=accuracy_Asian, x=duration_SEA))+
   theme_apa()+theme(axis.title.y = element_text(angle = 0, hjust = 0.5, vjust=0.5))+
@@ -246,6 +258,10 @@ How to run correlation in JASP
 JASP output for correlation test
 
 ![](Screenshot_correlation_table.png)
+
+<!-- [red]{style="color:blue"} -->
+
+A [Spearman's]{style="color:blue"} correlation was conducted in JASP [version 0.19.3]{style="color:blue"} to examine the relationship between time spent living in South-East Asia and recognition accuracy for Asian faces. The results indicated a [significant positive]{style="color:blue"} relationship, rs(48) = [.606]{style="color:blue"}, p < [.001]{style="color:blue"}.
 
 
 ## Writing up a correlation in a report
